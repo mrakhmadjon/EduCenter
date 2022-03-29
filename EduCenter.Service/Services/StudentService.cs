@@ -1,4 +1,4 @@
-﻿using AduCenter.Data.IRepositories;
+﻿using EduCenter.Data.IRepositories;
 using EduCenter.Domain.Commons;
 using EduCenter.Domain.Configurations;
 using EduCenter.Domain.Entities.Students;

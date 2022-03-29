@@ -5,7 +5,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace AduCenter.Data.IRepositories
+namespace EduCenter.Data.IRepositories
 {
     public interface IStudentRepository : IGenericRepository<Student> 
     {

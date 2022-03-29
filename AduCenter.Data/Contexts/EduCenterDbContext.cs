@@ -9,7 +9,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace AduCenter.Data.Contexts
+namespace EduCenter.Data.Contexts
 {
     public class EduCenterDbContext : DbContext
     {

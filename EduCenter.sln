@@ -5,7 +5,7 @@ VisualStudioVersion = 17.1.32210.238
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "EduCenter.Api", "EduCenter.Api\EduCenter.Api.csproj", "{A3A622B0-E1C3-4A6A-A5E5-765D23AAEF16}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AduCenter.Data", "AduCenter.Data\AduCenter.Data.csproj", "{22671FD5-1654-4921-B4D4-052986DAE770}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "EduCenter.Data", "AduCenter.Data\EduCenter.Data.csproj", "{22671FD5-1654-4921-B4D4-052986DAE770}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "EduCenter.Domain", "EduCenter.Domain\EduCenter.Domain.csproj", "{FF55A469-F02E-4BF1-A032-0FD520A6A800}"
 EndProject

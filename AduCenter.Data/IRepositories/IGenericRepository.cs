@@ -5,7 +5,7 @@ using System.Linq.Expressions;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace AduCenter.Data.IRepositories
+namespace EduCenter.Data.IRepositories
 {
     public interface IGenericRepository<T> where T : class
     {

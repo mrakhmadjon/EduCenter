@@ -1,6 +1,6 @@
-using AduCenter.Data.Contexts;
-using AduCenter.Data.IRepositories;
-using AduCenter.Data.Repositories;
+using EduCenter.Data.Contexts;
+using EduCenter.Data.IRepositories;
+using EduCenter.Data.Repositories;
 using EduCenter.Service.Helpers;
 using EduCenter.Service.Interfaces;
 using EduCenter.Service.Services;

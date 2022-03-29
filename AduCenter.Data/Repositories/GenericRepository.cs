@@ -1,5 +1,5 @@
-﻿using AduCenter.Data.Contexts;
-using AduCenter.Data.IRepositories;
+﻿using EduCenter.Data.Contexts;
+using EduCenter.Data.IRepositories;
 using Microsoft.EntityFrameworkCore;
 using Serilog;
 using System;
@@ -9,19 +9,19 @@ using System.Linq.Expressions;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace AduCenter.Data.Repositories
+namespace EduCenter.Data.Repositories
 {
 #pragma warning disable
     public class GenericRepository<T> : IGenericRepository<T> where T : class
     {
         internal EduCenterDbContext eduCenterDbContext;
         internal DbSet<T> dbSet;
-        private readonly ILogger logger;
-        public GenericRepository(EduCenterDbContext eduCenterDbContext,ILogger logger)
+        //private readonly ILogger logger;
+        public GenericRepository(EduCenterDbContext eduCenterDbContext)
         {
             this.eduCenterDbContext = eduCenterDbContext;
             this.dbSet = eduCenterDbContext.Set<T>();
-            this.logger = logger;
+            //this.logger = logger;
         }
 
 
@@ -35,7 +35,7 @@ namespace AduCenter.Data.Repositories
             }
             catch (Exception ex)
             {
-                logger.Error(ex.Message);
+                //logger.Error(ex.Message);
                 throw;
             }
         }
@@ -55,7 +55,7 @@ namespace AduCenter.Data.Repositories
             }
             catch (Exception ex)
             {
-                logger.Error(ex.Message);
+              //  logger.Error(ex.Message);
                 throw;
             }
         }
@@ -74,7 +74,7 @@ namespace AduCenter.Data.Repositories
             }
             catch (Exception ex)
             {
-                logger.Error(ex.Message);
+               // logger.Error(ex.Message);
                 throw;
             }
         }
@@ -89,7 +89,7 @@ namespace AduCenter.Data.Repositories
             }
             catch (Exception ex)
             {
-                logger.Error(ex.Message);
+               // logger.Error(ex.Message);
                 throw;
             }
         }

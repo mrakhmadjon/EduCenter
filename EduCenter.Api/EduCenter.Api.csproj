@@ -14,11 +14,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="Controllers\" />
-  </ItemGroup>
-
-  <ItemGroup>
-    <ProjectReference Include="..\AduCenter.Data\AduCenter.Data.csproj" />
+    <ProjectReference Include="..\AduCenter.Data\EduCenter.Data.csproj" />
     <ProjectReference Include="..\EduCenter.Service\EduCenter.Service.csproj" />
   </ItemGroup>
 
