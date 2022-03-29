@@ -3,13 +3,10 @@ using EduCenter.Domain.Entities.Courses;
 using EduCenter.Domain.Enums;
 using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace EduCenter.Domain.Entities.Teachers
 {
-    internal class Teacher : IAuditable 
+    internal class Teacher : IAuditable
     {
         public Guid Id { get; set; }
         public string FirstName { get; set; }

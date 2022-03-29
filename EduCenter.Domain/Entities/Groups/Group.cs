@@ -7,14 +7,11 @@ using EduCenter.Domain.Localizations;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations.Schema;
-using System.Linq;
-using System.Text;
 using System.Text.Json.Serialization;
-using System.Threading.Tasks;
 
 namespace EduCenter.Domain.Entities.Groups
 {
-    internal class Group : IAuditable , ILocalizationNames
+    internal class Group : IAuditable, ILocalizationNames
     {
         public Guid Id { get; set; }
         [JsonIgnore]
