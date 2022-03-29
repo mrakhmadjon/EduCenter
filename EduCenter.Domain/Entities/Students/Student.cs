@@ -4,7 +4,7 @@ using System;
 
 namespace EduCenter.Domain.Entities.Students
 {
-    internal class Student : IAuditable
+    public class Student : IAuditable
     {
         public Guid Id { get; set; }
         public string FirstName { get; set; }

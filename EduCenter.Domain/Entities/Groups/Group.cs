@@ -11,7 +11,7 @@ using System.Text.Json.Serialization;
 
 namespace EduCenter.Domain.Entities.Groups
 {
-    internal class Group : IAuditable, ILocalizationNames
+    public class Group : IAuditable, ILocalizationNames
     {
         public Guid Id { get; set; }
         [JsonIgnore]

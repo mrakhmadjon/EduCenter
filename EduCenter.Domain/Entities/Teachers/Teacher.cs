@@ -6,7 +6,7 @@ using System.Collections.Generic;
 
 namespace EduCenter.Domain.Entities.Teachers
 {
-    internal class Teacher : IAuditable
+    public class Teacher : IAuditable
     {
         public Guid Id { get; set; }
         public string FirstName { get; set; }
