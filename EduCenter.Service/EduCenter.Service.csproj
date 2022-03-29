@@ -5,8 +5,12 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <Folder Include="Interfaces\" />
-    <Folder Include="Services\" />
+    <PackageReference Include="Microsoft.AspNetCore.Http.Abstractions" Version="2.2.0" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\AduCenter.Data\AduCenter.Data.csproj" />
+    <ProjectReference Include="..\EduCenter.Domain\EduCenter.Domain.csproj" />
   </ItemGroup>
 
 </Project>

@@ -1,6 +1,12 @@
 using AduCenter.Data.Contexts;
+using AduCenter.Data.IRepositories;
+using AduCenter.Data.Repositories;
+using EduCenter.Service.Helpers;
+using EduCenter.Service.Interfaces;
+using EduCenter.Service.Services;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
+using Microsoft.AspNetCore.Http;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
@@ -26,12 +32,22 @@ namespace EduCenter.Api
                 options.UseSqlServer(Configuration.GetConnectionString("EduCenter"));
             });
 
-            services.AddControllers().AddNewtonsoftJson();           
+            services.AddControllers().AddNewtonsoftJson();
+
+            services.AddHttpContextAccessor();
 
             services.AddSwaggerGen(c =>
             {
                 c.SwaggerDoc("v1", new OpenApiInfo { Title = "EduCenter.Api", Version = "v1" });
             });
+
+            // custom services
+            services.AddScoped<IStudentService, StudentService>();
+
+            services.AddScoped<IStudentRepository, StudentRepository>();
+            services.AddScoped<IGroupRepository, GroupRepository>();
+
+
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -42,6 +58,11 @@ namespace EduCenter.Api
                 app.UseDeveloperExceptionPage();
                 app.UseSwagger();
                 app.UseSwaggerUI(c => c.SwaggerEndpoint("/swagger/v1/swagger.json", "EduCenter.Api v1"));
+            }
+
+            if (app.ApplicationServices.GetService<IHttpContextAccessor>() != null)
+            {
+                HttpContextHelper.Accessor = app.ApplicationServices.GetRequiredService<IHttpContextAccessor>();
             }
 
             app.UseHttpsRedirection();

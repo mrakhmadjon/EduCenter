@@ -11,7 +11,8 @@ using System.Threading.Tasks;
 
 namespace AduCenter.Data.Repositories
 {
-    internal class GenericRepository<T> : IGenericRepository<T> where T : class
+#pragma warning disable
+    public class GenericRepository<T> : IGenericRepository<T> where T : class
     {
         internal EduCenterDbContext eduCenterDbContext;
         internal DbSet<T> dbSet;
