@@ -1,3 +1,4 @@
+using EduCenter.Api.Extensions;
 using EduCenter.Data.Contexts;
 using EduCenter.Data.IRepositories;
 using EduCenter.Data.Repositories;
@@ -41,13 +42,8 @@ namespace EduCenter.Api
                 c.SwaggerDoc("v1", new OpenApiInfo { Title = "EduCenter.Api", Version = "v1" });
             });
 
-            // custom services
-            services.AddScoped<IStudentService, StudentService>();
-
-            services.AddScoped<IStudentRepository, StudentRepository>();
-            services.AddScoped<IGroupRepository, GroupRepository>();
-
-
+            services.AddCustomServices();
+    
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

@@ -13,8 +13,12 @@ namespace EduCenter.Data.Repositories
         private readonly EduCenterDbContext context;
 
         public UnitOfWork(EduCenterDbContext context)
-        {
+        {   
             this.context = context;
+
+            //Object initializing for repositories
+            Students = new StudentRepository(context);
+            Groups = new GroupRepository(context);
         }
 
         public IStudentRepository Students {get; private set;}
@@ -26,9 +30,9 @@ namespace EduCenter.Data.Repositories
             GC.SuppressFinalize(this);
         }
 
-        public Task SaveChangesAsync()
+        public async Task SaveChangesAsync()
         {
-            context.SavingChanges();
+           await context.SaveChangesAsync();
         }
     }
 }
