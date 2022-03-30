@@ -11,7 +11,7 @@ using System.Threading.Tasks;
 namespace EduCenter.Api.Controllers
 {
     [ApiController]
-    [Route("Api/Controller")]
+    [Route("Api/[controller]")]
     public class StudentsController : ControllerBase
     {
         private readonly IStudentService studentService;
