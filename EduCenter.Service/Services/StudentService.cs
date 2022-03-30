@@ -16,13 +16,11 @@ namespace EduCenter.Service.Services
 {
     public class StudentService : IStudentService
     {
-        private readonly IStudentRepository studentRepository;
-        private readonly IGroupRepository groupRepository;
+        private readonly IUnitOfWork unitOfWork;
 
-        public StudentService(IStudentRepository studentRepository, IGroupRepository groupRepository)
+        public StudentService(IUnitOfWork unitOfWork)
         {
-            this.groupRepository = groupRepository;
-            this.studentRepository = studentRepository;
+            this.unitOfWork = unitOfWork;
         }
 
         public async Task<BaseResponse<Student>> CreateAsync(StudentForCreationDto studentDto)
@@ -30,7 +28,7 @@ namespace EduCenter.Service.Services
             var response = new BaseResponse<Student>();
 
             // check for student
-            var existStudent = await studentRepository.GetAsync(p => p.Phone == studentDto.Phone);
+            var existStudent = await unitOfWork.Students.GetAsync(p => p.Phone == studentDto.Phone);
             if (existStudent is not null)
             {
                 response.Error = new ErrorResponse(400, "User is exist");
@@ -38,7 +36,7 @@ namespace EduCenter.Service.Services
             }
 
             // check for group
-            var existGroup = await groupRepository.GetAsync(p => p.Id == studentDto.GroupId);
+            var existGroup = await unitOfWork.Groups.GetAsync(p => p.Id == studentDto.GroupId);
             if (existGroup is null)
             {
                 response.Error = new ErrorResponse(404, "Group not found");
@@ -54,8 +52,8 @@ namespace EduCenter.Service.Services
                 GroupId = studentDto.GroupId
             };
 
-            var result = await studentRepository.CreateAsync(mappedStudent);
-
+            var result = await unitOfWork.Students.CreateAsync(mappedStudent);
+            await unitOfWork.SaveChangesAsync();
             response.Data = result;
 
             return response;
@@ -66,15 +64,15 @@ namespace EduCenter.Service.Services
             var response = new BaseResponse<bool>();
 
             // check for exist student
-            var existStudent = await studentRepository.GetAsync(expression);
+            var existStudent = await unitOfWork.Students.GetAsync(expression);
             if (existStudent is null)
             {
                 response.Error = new ErrorResponse(404, "User not found");
                 return response;
             }
 
-            var result = await studentRepository.UpdateAsync(existStudent);
-
+            var result = await unitOfWork.Students.UpdateAsync(existStudent);
+            await unitOfWork.SaveChangesAsync();
             response.Data = true;
 
             return response;
@@ -84,7 +82,7 @@ namespace EduCenter.Service.Services
         {
             var response = new BaseResponse<IEnumerable<Student>>();
 
-            var students = await studentRepository.GetAllAsync(expression);
+            var students = await unitOfWork.Students.GetAllAsync(expression);
 
             response.Data = students.ToPagedList(@params);
 
@@ -95,7 +93,7 @@ namespace EduCenter.Service.Services
         {
             var response = new BaseResponse<Student>();
 
-            var student = await studentRepository.GetAsync(expression);
+            var student = await unitOfWork.Students.GetAsync(expression);
             if (student is null)
             {
                 response.Error = new ErrorResponse(404, "User not found");
@@ -112,7 +110,7 @@ namespace EduCenter.Service.Services
             var response = new BaseResponse<Student>();
 
             // check for exist student
-            var student = await studentRepository.GetAsync(p => p.Id == id);
+            var student = await unitOfWork.Students.GetAsync(p => p.Id == id);
             if (student is null)
             {
                 response.Error = new ErrorResponse(404, "User not found");
@@ -120,7 +118,7 @@ namespace EduCenter.Service.Services
             }
 
             // check for exist group
-            var group = await groupRepository.GetAsync(p => p.Id == studentDto.GroupId);
+            var group = await unitOfWork.Students.GetAsync(p => p.Id == studentDto.GroupId);
             if (group is null)
             {
                 response.Error = new ErrorResponse(404, "Group not found");
@@ -136,8 +134,8 @@ namespace EduCenter.Service.Services
             };
             mappedStudent.Update();
 
-            var result = await studentRepository.UpdateAsync(mappedStudent);
-
+            var result = await unitOfWork.Students.UpdateAsync(mappedStudent);
+            await unitOfWork.SaveChangesAsync();
             response.Data = result;
 
             return response;
