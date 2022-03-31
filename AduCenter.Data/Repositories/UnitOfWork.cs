@@ -1,9 +1,6 @@
 ﻿using EduCenter.Data.Contexts;
 using EduCenter.Data.IRepositories;
 using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 using System.Threading.Tasks;
 
 namespace EduCenter.Data.Repositories
@@ -13,7 +10,7 @@ namespace EduCenter.Data.Repositories
         private readonly EduCenterDbContext context;
 
         public UnitOfWork(EduCenterDbContext context)
-        {   
+        {
             this.context = context;
 
             //Object initializing for repositories
@@ -21,7 +18,7 @@ namespace EduCenter.Data.Repositories
             Groups = new GroupRepository(context);
         }
 
-        public IStudentRepository Students {get; private set;}
+        public IStudentRepository Students { get; private set; }
 
         public IGroupRepository Groups { get; private set; }
 
@@ -32,7 +29,7 @@ namespace EduCenter.Data.Repositories
 
         public async Task SaveChangesAsync()
         {
-           await context.SaveChangesAsync();
+            await context.SaveChangesAsync();
         }
     }
 }

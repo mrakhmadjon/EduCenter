@@ -1,6 +1,6 @@
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Hosting;
-
+using Serilog;
 namespace EduCenter.Api
 {
     public class Program
@@ -15,6 +15,10 @@ namespace EduCenter.Api
                 .ConfigureWebHostDefaults(webBuilder =>
                 {
                     webBuilder.UseStartup<Startup>();
-                });
+                })
+            .UseSerilog((hostingContext, loggingConfiguration) =>
+            {
+                loggingConfiguration.ReadFrom.Configuration(hostingContext.Configuration);
+            });
     }
 }

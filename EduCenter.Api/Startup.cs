@@ -1,10 +1,6 @@
 using EduCenter.Api.Extensions;
 using EduCenter.Data.Contexts;
-using EduCenter.Data.IRepositories;
-using EduCenter.Data.Repositories;
 using EduCenter.Service.Helpers;
-using EduCenter.Service.Interfaces;
-using EduCenter.Service.Services;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
@@ -43,7 +39,7 @@ namespace EduCenter.Api
             });
 
             services.AddCustomServices();
-    
+
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

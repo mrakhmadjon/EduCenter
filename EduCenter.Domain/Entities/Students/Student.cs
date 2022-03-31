@@ -18,7 +18,7 @@ namespace EduCenter.Domain.Entities.Students
         public DateTime CreatedAt { get; set; }
         public DateTime? UpdatedAt { get; set; }
         public Guid? UpdatedBy { get; set; }
-        public ItemState State { get; set; }
+        public ItemState State { get; set; } = ItemState.Created;
 
 
         public void Update()

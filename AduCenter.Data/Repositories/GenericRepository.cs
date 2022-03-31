@@ -1,12 +1,9 @@
 ﻿using EduCenter.Data.Contexts;
 using EduCenter.Data.IRepositories;
 using Microsoft.EntityFrameworkCore;
-using Serilog;
 using System;
-using System.Collections.Generic;
 using System.Linq;
 using System.Linq.Expressions;
-using System.Text;
 using System.Threading.Tasks;
 
 namespace EduCenter.Data.Repositories
@@ -16,59 +13,56 @@ namespace EduCenter.Data.Repositories
     {
         internal EduCenterDbContext eduCenterDbContext;
         internal DbSet<T> dbSet;
-        //private readonly ILogger logger;
         public GenericRepository(EduCenterDbContext eduCenterDbContext)
         {
             this.eduCenterDbContext = eduCenterDbContext;
             this.dbSet = eduCenterDbContext.Set<T>();
-            //this.logger = logger;
         }
 
 
         public async Task<T> CreateAsync(T entity)
-    {
+        {
             var entry = await dbSet.AddAsync(entity);
 
             return entry.Entity;
-           
+
         }
 
         public async Task<bool> DeleteAsync(Expression<Func<T, bool>> expression)
         {
-             var entity = await dbSet.FirstOrDefaultAsync(expression);
+            var entity = await dbSet.FirstOrDefaultAsync(expression);
 
-                if (entity is null)
-                    return false;
+            if (entity is null)
+                return false;
 
-                dbSet.Remove(entity);
+            dbSet.Remove(entity);
 
-                return true;
-           
+            return true;
+
         }
 
         public async Task<IQueryable<T>> GetAllAsync(Expression<Func<T, bool>> expression = null)
         {
+            throw new ArgumentNullException();
+
             return expression is null ? dbSet : dbSet.Where(expression);
         }
 
         public async Task<T> GetAsync(Expression<Func<T, bool>> expression)
         {
-           
-                var entity = await dbSet.FirstOrDefaultAsync(expression);
-                return entity;
-           
+
+            var entity = await dbSet.FirstOrDefaultAsync(expression);
+            return entity;
+
         }
 
         public async Task<T> UpdateAsync(T entity)
         {
-           
-                var entry = dbSet.Update(entity);
 
-                return entry.Entity;
-           
+            var entry = dbSet.Update(entity);
+
+            return entry.Entity;
+
         }
-
-
-
-      }
+    }
 }

@@ -29,9 +29,9 @@ namespace EduCenter.Api.Controllers
         }
 
         [HttpGet]
-        public async Task<ActionResult<BaseResponse<IEnumerable<Student>>>> GetAll( [FromQuery] PaginationParams @params)
+        public async Task<ActionResult<BaseResponse<IEnumerable<Student>>>> GetAll([FromQuery] PaginationParams @params)
         {
-           
+
             var result = await studentService.GetAllAsync(@params);
 
             return StatusCode(result.Code ?? result.Error.Code.Value, result);
