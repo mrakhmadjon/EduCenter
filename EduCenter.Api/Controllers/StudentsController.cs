@@ -1,6 +1,7 @@
 ﻿using EduCenter.Domain.Commons;
 using EduCenter.Domain.Configurations;
 using EduCenter.Domain.Entities.Students;
+using EduCenter.Domain.Enums;
 using EduCenter.Service.DTOs.Students;
 using EduCenter.Service.Interfaces;
 using Microsoft.AspNetCore.Mvc;
@@ -56,7 +57,7 @@ namespace EduCenter.Api.Controllers
         [HttpDelete("{id}")]
         public async Task<ActionResult<BaseResponse<bool>>> Delete(Guid id)
         {
-            var result = await studentService.DeleteAsync(p => p.Id == id);
+            var result = await studentService.DeleteAsync(p => p.Id == id && p.State != ItemState.Deleted);
 
             return StatusCode(result.Code ?? result.Error.Code.Value, result);
         }

@@ -42,9 +42,7 @@ namespace EduCenter.Data.Repositories
         }
 
         public async Task<IQueryable<T>> GetAllAsync(Expression<Func<T, bool>> expression = null)
-        {
-            throw new ArgumentNullException();
-
+        {          
             return expression is null ? dbSet : dbSet.Where(expression);
         }
 

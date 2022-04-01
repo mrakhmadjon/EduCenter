@@ -1,6 +1,7 @@
 using EduCenter.Api.Extensions;
 using EduCenter.Data.Contexts;
 using EduCenter.Service.Helpers;
+using EduCenter.Service.Mappers;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
@@ -39,6 +40,8 @@ namespace EduCenter.Api
             });
 
             services.AddCustomServices();
+
+            services.AddAutoMapper(typeof(MappingProfile));
 
         }
 

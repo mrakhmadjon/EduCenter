@@ -1,4 +1,5 @@
-﻿using EduCenter.Data.IRepositories;
+﻿using AutoMapper;
+using EduCenter.Data.IRepositories;
 using EduCenter.Domain.Commons;
 using EduCenter.Domain.Configurations;
 using EduCenter.Domain.Entities.Students;
@@ -15,10 +16,13 @@ namespace EduCenter.Service.Services
     public class StudentService : IStudentService
     {
         private readonly IUnitOfWork unitOfWork;
+        private readonly IMapper mapper;
 
-        public StudentService(IUnitOfWork unitOfWork)
+
+        public StudentService(IUnitOfWork unitOfWork,IMapper mapper)
         {
             this.unitOfWork = unitOfWork;
+            this.mapper = mapper;
         }
 
         public async Task<BaseResponse<Student>> CreateAsync(StudentForCreationDto studentDto)
@@ -42,13 +46,7 @@ namespace EduCenter.Service.Services
             }
 
             // create after checking success
-            var mappedStudent = new Student
-            {
-                FirstName = studentDto.FirstName,
-                LastName = studentDto.LastName,
-                Phone = studentDto.Phone,
-                GroupId = studentDto.GroupId
-            };
+            var mappedStudent = mapper.Map<Student>(studentDto);
 
             var result = await unitOfWork.Students.CreateAsync(mappedStudent);
             await unitOfWork.SaveChangesAsync();
@@ -69,7 +67,9 @@ namespace EduCenter.Service.Services
                 return response;
             }
 
+            existStudent.Delete();
             var result = await unitOfWork.Students.UpdateAsync(existStudent);
+
             await unitOfWork.SaveChangesAsync();
             response.Data = true;
 
@@ -116,23 +116,22 @@ namespace EduCenter.Service.Services
             }
 
             // check for exist group
-            var group = await unitOfWork.Students.GetAsync(p => p.Id == studentDto.GroupId);
+            var group = await unitOfWork.Groups.GetAsync(p => p.Id == studentDto.GroupId);
             if (group is null)
             {
                 response.Error = new ErrorResponse(404, "Group not found");
                 return response;
             }
 
-            var mappedStudent = new Student
-            {
-                FirstName = student.FirstName,
-                LastName = student.LastName,
-                Phone = student.Phone,
-                GroupId = student.GroupId
-            };
-            mappedStudent.Update();
+            student.FirstName = studentDto.FirstName;
+            student.LastName = studentDto.LastName;
+            student.Phone = studentDto.Phone;
+            student.GroupId = studentDto.GroupId;
 
-            var result = await unitOfWork.Students.UpdateAsync(mappedStudent);
+            student.Update();         
+         
+
+            var result = await unitOfWork.Students.UpdateAsync(student);
             await unitOfWork.SaveChangesAsync();
             response.Data = result;
 
